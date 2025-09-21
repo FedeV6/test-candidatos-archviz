@@ -39,7 +39,7 @@ if nombre and st.session_state.activo:
                 st.success(f"¡Felicitaciones {nombre}, completaste el test!")
                 st.session_state.activo = False
             else:
-                st.experimental_rerun()  # 👈 fuerza refresco para mostrar la siguiente
+                st.rerun()  # ✅ nuevo método para refrescar y avanzar
         else:
             st.error("Respuesta incorrecta. El test finalizó.")
             st.session_state.activo = False
