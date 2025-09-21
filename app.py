@@ -8,7 +8,7 @@ preguntas = [
     ("La trazabilidad debe quedar siempre en email.", "V"),
     ("En ArchViz es correcto aplicar uplift por una sola imagen.", "V"),
     ("Un Change Order se aplica si hay nuevas vistas post-blockout.", "V"),
-    ("El feedback consolidado en =5 días evita retrasos.", "V"),
+    ("El feedback consolidado en ≤5 días evita retrasos.", "V"),
     ("Una animación de 30s se cobra por segundo + modelado.", "V"),
     ("Enseñar sin práctica es suficiente para un equipo pequeño.", "F"),
     ("Un capacitador debe adaptar a distintos estilos de aprendizaje.", "V"),
@@ -28,7 +28,7 @@ if nombre and st.session_state.activo:
     pregunta, respuesta_correcta = preguntas[st.session_state.indice]
     st.write(f"**Pregunta {st.session_state.indice+1}:** {pregunta}")
 
-    opcion = st.radio("Elegí una opción:", ["V", "F"])
+    opcion = st.radio("Elegí una opción:", ["V", "F"], key=st.session_state.indice)
 
     if st.button("Responder"):
         if opcion == respuesta_correcta:
@@ -38,6 +38,8 @@ if nombre and st.session_state.activo:
                 st.balloons()
                 st.success(f"¡Felicitaciones {nombre}, completaste el test!")
                 st.session_state.activo = False
+            else:
+                st.experimental_rerun()  # 👈 fuerza refresco para mostrar la siguiente
         else:
             st.error("Respuesta incorrecta. El test finalizó.")
             st.session_state.activo = False
